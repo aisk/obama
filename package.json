@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "description": "A simple helpful robot for your Company",
+  "scripts": {
+    "start": "EXPRESS_PORT=${LEANCLOUD_APP_PORT} sh bin/hubot -a bearychat"
+  },
   "dependencies": {
     "hubot": "^2.19.0",
     "hubot-bearychat": "^0.2.4",
