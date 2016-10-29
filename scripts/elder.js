@@ -10,6 +10,7 @@ module.exports = function(robot) {
   }
 
   robot.hear(/念.*诗/, function(res) {
+    robot.emit('deploy');
     res.send(poem);
   });
 
@@ -23,5 +24,9 @@ module.exports = function(robot) {
     res.send(
       `你问我啊，我可以回答你一句“无可奉告”，你们也不高兴，那怎么办？我讲的意思不是我钦点**${president}**当下任美国总统。你问我支持不支持，我是支持的，我就明确地告诉你这一点。`
     );
+  });
+
+  robot.hear(/今晚吃啥/, function(res) {
+    res.send('中央决定今晚吃铁锅焖面：http://www.dianping.com/shop/2064913 。');
   });
 }

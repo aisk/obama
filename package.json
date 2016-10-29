@@ -8,12 +8,13 @@
   },
   "dependencies": {
     "hubot": "^2.19.0",
-    "hubot-bearychat": "^0.2.4",
+    "hubot-bearychat": "github:aisk/hubot-bearychat",
     "hubot-diagnostics": "0.0.1",
     "hubot-google-images": "^0.2.6",
     "hubot-google-translate": "^0.2.0",
     "hubot-help": "^0.2.0",
     "hubot-heroku-keepalive": "^1.0.2",
+    "hubot-leanengine-script": "0.0.0",
     "hubot-maps": "0.0.2",
     "hubot-pugme": "^0.1.0",
     "hubot-redis-brain": "0.0.3",
@@ -22,6 +23,6 @@
     "hubot-shipit": "^0.2.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "4.x"
   }
 }
