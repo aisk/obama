@@ -27,6 +27,6 @@ module.exports = function(robot) {
   });
 
   robot.hear(/今晚吃啥/, function(res) {
-    res.send('中央决定今晚吃铁锅焖面：http://www.dianping.com/shop/2064913 。');
+    res.send(`**${res.random(['金城牛肉面', '重庆小面', '鸭血粉丝汤'])}**`);
   });
 }
