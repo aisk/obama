@@ -26,7 +26,7 @@ module.exports = function(robot) {
     );
   });
 
-  robot.hear(/今晚吃啥/, function(res) {
-    res.send(`**${res.random(['金城牛肉面', '重庆小面', '鸭血粉丝汤'])}**`);
+  robot.hear(/吃/, function(res) {
+    res.send(`**${res.random(['金城牛肉面', '重庆小面', '鸭血粉丝汤', '请点外卖'])}**`);
   });
 }
