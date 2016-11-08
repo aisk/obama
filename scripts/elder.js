@@ -1,5 +1,7 @@
 'use strict';
 
+const 钦点 = require('random-weighted-choice');
+
 module.exports = function(robot) {
   let poem = '苟利国家生死以岂因福祸避趋之';
   for (let i=0; i<poem.length-1; i++) {
@@ -27,6 +29,13 @@ module.exports = function(robot) {
   });
 
   robot.hear(/吃/, function(res) {
-    res.send(`**${res.random(['金城牛肉面', '重庆小面', '鸭血粉丝汤', '请点外卖'])}**`);
+    res.send(`**${钦点([
+      {weight: 10, id: '金城牛肉面'},
+      {weight: 10, id: '重庆小面'},
+      {weight: 10, id: '鸭血粉丝汤'},
+      {weight: 5, id: '马甸清真寺'},
+      {weight: 100, id: '煎饼果子'},
+      {weight: 5, id: '请点外卖'}
+    ])}**`);
   });
 }

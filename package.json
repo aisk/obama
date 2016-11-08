@@ -9,7 +9,8 @@
     "hubot": "^2.19.0",
     "hubot-bearychat": "github:aisk/hubot-bearychat",
     "hubot-leanengine-script": "0.0.0",
-    "hubot-scripts": "^2.17.2"
+    "hubot-scripts": "^2.17.2",
+    "random-weighted-choice": "^0.1.3"
   },
   "engines": {
     "node": "4.x"
