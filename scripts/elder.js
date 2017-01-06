@@ -4,16 +4,13 @@ const 钦点 = require('random-weighted-choice');
 
 module.exports = function(robot) {
   let poem = '苟利国家生死以岂因福祸避趋之';
-  for (let i=0; i<poem.length-1; i++) {
-    let word = poem[i];
-    robot.hear(new RegExp(word), function(res) {
-      res.send(poem[i+1]);
-    });
-  }
 
   robot.hear(/念.*诗/, function(res) {
-    robot.emit('deploy');
     res.send(poem);
+  });
+
+  robot.hear(/苟/, function(res) {
+    res.send('苟富贵，莫相忘。');
   });
 
   robot.hear(/钦点(.*)/, function(res) {
@@ -32,7 +29,7 @@ module.exports = function(robot) {
     res.send(`**${钦点([
       {weight: 10, id: '金城牛肉面'},
       {weight: 10, id: '重庆小面'},
-      {weight: 10, id: '鸭血粉丝汤'},
+      {weight: 1, id: '鸭血粉丝汤'},
       {weight: 5, id: '马甸清真寺'},
       {weight: 10, id: '煎饼果子'},
       {weight: 5, id: '请点外卖'},
