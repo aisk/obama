@@ -10,7 +10,7 @@ module.exports = function(robot) {
   });
 
   robot.hear(/苟/, function(res) {
-    res.send('苟富贵，莫相忘。');
+    res.send('苟日新，日日新，又日新。');
   });
 
   robot.hear(/钦点(.*)/, function(res) {
@@ -36,7 +36,7 @@ module.exports = function(robot) {
       {weight: 1, id: '不，王滨老师，我们不吃铁锅焖面'}
     ])}**`);
   });
-  
+
   robot.hear(/焖面/, function(res) {
     res.send('不，王滨老师，我们不吃铁锅焖面');
   });
