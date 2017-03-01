@@ -30,7 +30,8 @@ module.exports = function(robot) {
       {weight: 10, id: '金城牛肉面'},
       {weight: 10, id: '重庆小面'},
       {weight: 1, id: '鸭血粉丝汤'},
-      {weight: 5, id: '马甸清真寺'},
+      {weight: 2, id: '马甸清真寺'},
+      {weight: 20, id: '桂林米粉'},
       {weight: 10, id: '煎饼果子'},
       {weight: 5, id: '请点外卖'},
       {weight: 1, id: '不，王滨老师，我们不吃铁锅焖面'}
