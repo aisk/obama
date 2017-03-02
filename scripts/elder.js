@@ -53,6 +53,10 @@ module.exports = function(robot) {
     res.send('不，王滨老师，我们不吃铁锅焖面');
   });
 
+  robot.hear(/我要自杀/, function(res) {
+    res.send('可以，这很清真👌。\n你会开卡车吗？')
+  })
+
   var 行不行的算法 = function(res) {
     if (Math.random() > 0.5) {
       res.send('这不清真，阿拉胡阿克巴！');
