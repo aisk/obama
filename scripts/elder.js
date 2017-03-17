@@ -57,6 +57,10 @@ module.exports = function(robot) {
     res.send('可以，这很清真👌。\n你会开卡车吗？')
   })
 
+  robot.hear(/出来/, '嗷');
+
+  robot.hear(/嘿/, '咻');
+
   var 行不行的算法 = function(res) {
     if (Math.random() > 0.5) {
       res.send('这不清真，阿拉胡阿克巴！');
