@@ -62,7 +62,11 @@ module.exports = function(robot) {
   });
 
   robot.hear('嘿', function (res) {
-    res.send('咻')
+    if (Math.random() > 0.1) {
+      res.send('咻')
+    } else {
+      res.send('Miss! :-1:')
+    }
   });
 
   var 行不行的算法 = function(res) {
