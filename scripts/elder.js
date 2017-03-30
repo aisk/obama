@@ -1,6 +1,7 @@
 'use strict';
 
 const 钦点 = require('random-weighted-choice');
+const axios = require('axios');
 
 const 领导班子名单 = [
   {weight: 10, id: '金城牛肉面'},
@@ -83,5 +84,40 @@ module.exports = function(robot) {
     res.send('行不行的算法是:\n' +
       '```js\n' + 行不行的算法.toString() + '```'
     );
+  });
+
+  const STATUS_TYPE = ['update', 'investigating', 'identified', 'monitoring', 'resolved'];
+  const helpMessage = `status [${STATUS_TYPE.join('|')}] content | status delete id`;
+  const headers = {
+    'X-Bmob-Application-Id': 'b1cf38d2395fc2bc11aaa803dd380059',
+    'X-Bmob-Master-Key': process.env.BMOB_MASTERKEY,
+  };
+
+  robot.hear(/status(.*)/, function(res) {
+    const result = (res.match[1] || '').trim().match(/(\S*)\s*(.*)/);
+    if (result) {
+      const [__, command, content] = result;
+      const type = STATUS_TYPE.indexOf(command);
+      const user = res.message.user.name;
+      console.log(command, content, type, user);
+      if (command === 'delete') {
+        return axios.delete(`https://api.bmob.cn/1/classes/Status/${content}`, {
+          headers
+        }).then(
+          response => res.send(`${content} deleted`)
+        ).catch(error => {
+          res.send(error.message);
+        })
+      }
+      if (type == -1) return res.send(helpMessage);
+      return axios.post('https://api.bmob.cn/1/classes/Status', {content, user, type}, {
+        headers
+      }).then(
+        response => res.send(response.data.objectId)
+      ).catch(error => {
+        res.send(error.message);
+      })
+    }
+    return res.send(helpMessage);
   });
 }
