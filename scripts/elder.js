@@ -87,7 +87,7 @@ module.exports = function(robot) {
   });
 
   const STATUS_TYPE = ['update', 'investigating', 'identified', 'monitoring', 'resolved'];
-  const helpMessage = `status [${STATUS_TYPE.join('|')}] content | status delete id`;
+  const helpMessage = `status [[${STATUS_TYPE.join('|')}] content | delete id | archive]`;
   const headers = {
     'X-Bmob-Application-Id': 'b1cf38d2395fc2bc11aaa803dd380059',
     'X-Bmob-Master-Key': process.env.BMOB_MASTERKEY,
@@ -100,12 +100,30 @@ module.exports = function(robot) {
       const type = STATUS_TYPE.indexOf(command);
       const user = res.message.user.name;
       console.log(command, content, type, user);
+      if (command === 'archive') {
+        return axios.get(`https://api.bmob.cn/1/classes/Status/?limit=8&where=${encodeURIComponent('{"archived":{"$ne":true}}')}`, {
+          headers
+        }).then(response => {
+          console.log(response.data.results.map(status => status.objectId));
+          return Promise.all(response.data.results.map(status =>
+            axios.put(`https://api.bmob.cn/1/classes/Status/${status.objectId}`, { archived: true }, {
+              headers
+            })
+          ));
+        }).then(
+          response => res.send(`${response.length} status archived`)
+        ).catch(error => {
+          console.error(error);
+          res.send(error.message);
+        })
+      }
       if (command === 'delete') {
         return axios.delete(`https://api.bmob.cn/1/classes/Status/${content}`, {
           headers
         }).then(
           response => res.send(`${content} deleted`)
         ).catch(error => {
+          console.error(error);
           res.send(error.message);
         })
       }
@@ -115,6 +133,7 @@ module.exports = function(robot) {
       }).then(
         response => res.send(response.data.objectId)
       ).catch(error => {
+        console.error(error);
         res.send(error.message);
       })
     }
