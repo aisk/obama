@@ -3,6 +3,8 @@
 const 钦点 = require('random-weighted-choice');
 const axios = require('axios');
 
+const leancloudStatus = require('../lib/leancloud-status');
+
 const 领导班子名单 = [
   {weight: 10, id: '金城牛肉面'},
   {weight: 10, id: '重庆小面'},
@@ -87,7 +89,7 @@ module.exports = function(robot) {
   });
 
   const STATUS_TYPE = ['update', 'investigating', 'identified', 'monitoring', 'resolved'];
-  const helpMessage = `status [[${STATUS_TYPE.join('|')}] content | delete id | archive]`;
+  const helpMessage = `status [[${STATUS_TYPE.join('|')}] content | delete id | archive]\nstatus <new|amend> [color] content (the New & Clear way)\nAvailable colors: ${Object.keys(leancloudStatus.colorMapping).join(', ')}`;
   const headers = {
     'X-Bmob-Application-Id': 'b1cf38d2395fc2bc11aaa803dd380059',
     'X-Bmob-Master-Key': process.env.BMOB_MASTERKEY,
@@ -127,7 +129,34 @@ module.exports = function(robot) {
           res.send(error.message);
         })
       }
+      if (command === 'new') {
+        const result = (res.match[1] || '').trim().match(/new\s+(\S+)?\s*(.*)/);
+        const color = result[2] ? result[1] : 'gray';
+        const content = result[2] ? result[2] : result[1];
+
+        if (color && content) {
+          return leancloudStatus.create(color, content).then( () => {
+            return res.send('ok');
+          });
+        } else {
+          return res.send(helpMessage);
+        }
+      }
+      if (command === 'amend') {
+        const result = (res.match[1] || '').trim().match(/amend\s+(\S+)?\s*(.*)/);
+        const color = result[2] ? result[1] : null;
+        const content = result[2] ? result[2] : result[1];
+
+        if (content) {
+          return leancloudStatus.updateLastMessage(color, content).then( () => {
+            return res.send('ok');
+          });
+        } else {
+          return res.send(helpMessage);
+        }
+      }
       if (type == -1) return res.send(helpMessage);
+      leancloudStatus.create(command, content);
       return axios.post('https://api.bmob.cn/1/classes/Status', {content, user, type}, {
         headers
       }).then(
