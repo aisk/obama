@@ -22,13 +22,7 @@ const scoreMapping =  {
 
 module.exports = function(hubot) {
   hubot.hear(/如何正确地吃饭/, res => {
-    res.send(
-`1. 可以随时向机器人录入自己的偏好（例如：我喜欢重庆小面、我绝对不去越南米粉、我对汉堡王不予评价）
-2. 每天要吃饭的人需要先向机器人报名（例如：我要吃饭、@yli 今天也要吃饭）
-3. 在人齐之后问机器人吃什么，机器人会根据每个人的偏好和前几次去过的餐馆给出建议
-4. 在吃完饭后需要向机器人进行汇报（例如：我们昨天去了美食广场）
-`
-    );
+    res.send(`吃饭教程：<https://github.com/jysperm/obama>`);
   });
 
   hubot.hear(/(午|晚)?.*吃什么/, res => {
@@ -232,7 +226,7 @@ module.exports = function(hubot) {
     });
   });
 
-  hubot.hear(/(.*)(偏好|喜欢吃)/, res => {
+  hubot.hear(/@(.*)(偏好|喜欢吃)/, res => {
     const [__, username] = res.match;
 
     return printPreferencesOf(username.trim()).then( preferences => {
