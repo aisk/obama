@@ -226,7 +226,7 @@ module.exports = function(hubot) {
     });
   });
 
-  hubot.hear(/@(.*)(偏好|喜欢吃)/, res => {
+  hubot.hear(/@(.*)喜欢去/, res => {
     const [__, username] = res.match;
 
     return printPreferencesOf(username.trim()).then( preferences => {

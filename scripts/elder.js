@@ -44,10 +44,6 @@ module.exports = function(robot) {
     );
   });
 
-  robot.hear(/吃/, function(res) {
-    res.send(`**${钦点(领导班子名单)}**`);
-  });
-
   robot.hear(/名单/, function(res) {
     res.send(JSON.stringify(领导班子名单));
   });
